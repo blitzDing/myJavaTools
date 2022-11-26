@@ -3,6 +3,7 @@ package fileShortCuts;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public class TextFileProcessing 
 {
@@ -40,5 +41,26 @@ public class TextFileProcessing
 	public static void createDir(String pfad)
 	{
 		
+	}
+	
+	public static void consumeOneLine(String pfad, int n)
+	{
+		
+	}
+	
+	public static void consumeCoupleOfLines(String pfad, List<Integer> n, BiConsumer<Integer, String> bic)
+	{
+		
+	}
+	
+	public static void consumeLineIntervall(String pfad, int start, int end, BiConsumer<Integer, String> bic)
+	{
+		
+		
+	}
+	
+	public static void consumeLinesUntilN(String pfad, int end, BiConsumer<Integer, String> bic)
+	{
+		consumeLineIntervall(pfad, 0, end, bic);
 	}
 }
