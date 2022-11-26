@@ -40,16 +40,7 @@ public class CollectionManupulation
 		
 		return product;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public static <T> Set<List<T>> cartesianProduct(Set<T>... origin)
-	{
-		List<Set<T>> transformedOrigin = new ArrayList<>();
-		for(int n=0;n<origin.length;n++)transformedOrigin.add(origin[n]);
 		
-		return cartesianProduct(transformedOrigin);
-	}
-	
 	public static <T> Set<List<T>> cartesianProduct(List<Set<T>> origin)
 	{
 
@@ -95,7 +86,8 @@ public class CollectionManupulation
 	public static <T> T catchRandomElementOfSet(Set<T> set)
 	{
 		
-		List<T> list = new ArrayList<>(set);
+		List<T> list = new ArrayList<>();
+		list.addAll(set);
 		
 		return catchRandomElementOfList(list);
 	}
@@ -118,6 +110,6 @@ public class CollectionManupulation
 	
 	public static int randomInt(int n)
 	{
-		return (int)(Math.floor(Math.random()*n));
+		return (int)(Math.random()*n);
 	}
 }

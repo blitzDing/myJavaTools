@@ -21,12 +21,13 @@ public class CartesianAndPowerSetTest
 		edukte.add(s3);
 		edukte.add(s4);
 		
-		@SuppressWarnings("unchecked")
-		Set<List<String>> erg = CollectionManupulation.cartesianProduct(s1,s2,s3,s4);
+	
+		Set<List<String>> erg = CollectionManupulation.cartesianProduct(edukte);
 		System.out.println("Set of List's size:"+erg.size());
 		System.out.println(erg);
 		System.out.println("");
-		
+
+		/*
 		Set<Set<String>> powerSet = CollectionManupulation.powerSet(s2);
 		System.out.println("Set of Set's size:"+powerSet.size());
 		System.out.println(powerSet);
@@ -41,6 +42,6 @@ public class CartesianAndPowerSetTest
 		Set<List<String>> wundertuete = CollectionManupulation.cartesianProduct(edukte2);
 		System.out.println("Set of List's size:"+wundertuete.size());
 		System.out.println(wundertuete);
+		*/
 	}
-
 }
