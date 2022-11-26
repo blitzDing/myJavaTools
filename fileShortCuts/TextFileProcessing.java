@@ -1,5 +1,7 @@
 package fileShortCuts;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,59 +10,71 @@ import java.util.function.BiConsumer;
 public class TextFileProcessing 
 {
 
+	private List<String> lines = new ArrayList<>();
+	
+	/*
+		The idea is to load the content and hold its
+		content in a List. For quick and random
+		access. This might cause trouble with The
+		JVM if the file(s) are big. Because of Memory
+		Space.
+	*/
+	public TextFileProcessing(String pfad) throws IOException
+	{
+		loadText(pfad);
+	}
+	
 	public static void saveText(String pfad, List<String> lines)
+	{
+
+	    Path dest = Paths.get(pfad);
+	    Charset cs = Charset.forName("UTF-8");
+	    try 
+	    {
+	      Path p = Files.write(dest, lines, cs, StandardOpenOption.WRITE,
+	          StandardOpenOption.CREATE);
+	    
+	      System.out.println("saved " + p.toAbsolutePath());
+	    } 
+	    catch (IOException e) 
+	    {
+	      e.printStackTrace();
+	    }
+	}
+	
+	private void loadText(String pfad) throws IOException
 	{
 		
 		Path path = Paths.get(pfad);
-		if(Files.isDirectory(path.getParent())&&Files.notExists(path))
-		{
-			
-			
-			for(String line: lines)
-			{
-			
-			}
-		}
+		if(Files.notExists(path))throw new IllegalArgumentException("File doesn't exist.");
+		
+		lines = Files.readAllLines(path, Charset.forName("UTF-8"));
 	}
 	
-	public static List<String> loadText(String path)
+	public int countFileLines()
 	{
+		return lines.size();
+	}
 		
-		List<String> lines = new ArrayList<>();
-		
-		
-		return lines;
+	public void consumeOneLine(int n, BiConsumer<Integer, String> bic)
+	{
+		bic.accept(n, lines.get(n));
 	}
 	
-	public static int countFileLines()
+	public void consumeCoupleOfLines(List<Integer> lineNrs, BiConsumer<Integer, String> bic)
 	{
 		
-		return 0;
+		//Keeps Order of lineNrs!!
+		for(int n: lineNrs)bic.accept(n, lines.get(n));
 	}
 	
-	public static void createDir(String pfad)
+	public void consumeLineIntervall(int start, int end, BiConsumer<Integer, String> bic)
 	{
-		
+		for(int n=start;n<end;n++)bic.accept(n, lines.get(n));
 	}
 	
-	public static void consumeOneLine(String pfad, int n)
+	public void consumeLinesUntilN(int end, BiConsumer<Integer, String> bic)
 	{
-		
-	}
-	
-	public static void consumeCoupleOfLines(String pfad, List<Integer> n, BiConsumer<Integer, String> bic)
-	{
-		
-	}
-	
-	public static void consumeLineIntervall(String pfad, int start, int end, BiConsumer<Integer, String> bic)
-	{
-		
-		
-	}
-	
-	public static void consumeLinesUntilN(String pfad, int end, BiConsumer<Integer, String> bic)
-	{
-		consumeLineIntervall(pfad, 0, end, bic);
+		consumeLineIntervall(0, end, bic);
 	}
 }
